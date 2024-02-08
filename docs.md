@@ -23,6 +23,12 @@
     *time* = "[hh:mm:ss transaction time]"
 }
 
+###### TRANSACTION ID DATA STRUCTURE (Request)
+{}
+
+###### TRANSACTION ID DATA STRUCTURE (Response)
+{}
+
 ###### ACCOUNT DATA STRUCTURE
 {
     *id* = "[unique identifier]",
