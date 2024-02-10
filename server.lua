@@ -34,14 +34,14 @@ local OBhostnamePrefix = OBdataPrefix.."BankServer:"
 local OBhostname = function (bankname) return OBhostnamePrefix..bankname end
 --------------------------------------------------------------------------------------------------------------------------------------------------
 
----------------------------------------------------------------------------------- UTILITY -----------------------------------------------------------------------------------
+-------------------------------------------------------------------- UTILITY ---------------------------------------------------------------------
 function table.contains(table, element)
     for _, value in pairs(table) do if value == element then return true end end return false -- one liner functions go brrrrr
 end
 function table.keys(t)
     local keys={} for key,_ in pairs(t) do table.insert(keys, key) end return keys
 end
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------
 
 local accounts = {} --STORES ALL ACCOUNT DATA
 
