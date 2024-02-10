@@ -45,16 +45,20 @@ local function runTransaction(from, to, amount)
     local accountfrom = accounts[from]
     local accountto = accounts[to]
 
-    --verify that the transaction is possible
-    if (not accountfrom) and (not accountto) then
+    --verify that the transaction is possible:
+    if (not accountfrom) and (not accountto) then --both accounts exist
         return false, "Neither of the accounts exist"
     elseif not accountfrom then
-        return false, "Transaction  account does not exist"
+        return false, "Funding account does not exist"
     elseif not accountto then
-        return false, "Transaction recipient account does not exist" end
-    if accountfrom.balance < amount then
+        return false, "Recipient account does not exist" end
+    if accountfrom.balance < amount then --the account has sufficient funds
         return false, "Insufficient balance" end
-    if accountfrom.transactionPolicies.blacklist then end
+    if accountfrom.transactionPolicies.maxSingleTransactionAmount < amount then
+        return false, "Transaction amount exceeds single transaction limit"
+    end
+    if table.contains(accountfrom.transactionPolicies.blacklist, accountto) then --the recipient is not blacklisted
+        return false, "Recipient blacklisted" end
 
     --transfer the desired amount
     -- wip
@@ -66,7 +70,7 @@ end
 
 local transactionIDoffset = 0 --ensure that every transaction id is unique
 local function OBtransactionIDrequestHandler(senderID, request, protocol)
-    r
+
 end
 
 local function OBtransactionRequestHandler(senderID, request, protocol)
@@ -76,18 +80,22 @@ local function OBtransactionRequestHandler(senderID, request, protocol)
         to = request.to,
         origin = senderID,
         amount = request.amount,
-        completed = false,
+        completed = false, --deny transaction by default
         details = "",
         date = os.date("%d-%m-%Y"),
         time = os.date("%X")
     }
     -- run a couple checks
     if senderID ~= request.client then
-        response.details = "Client ID is different than declared, possible third party intermission" end
+        response.details = "Client ID is different than declared, possible third party intermission"
+        return response end
+    if not table.contains(accounts[request.from].logins, senderID) then
+        response.details = "Client is not logged into funding account"
+        return response end
     
 
     -- run the actual transaction
-    local success, info = runTransaction(request.from, request.to, request.amount)
+    local success, info, description = runTransaction(request.from, request.to, request.amount)
     request.completed = success
     request.details = info
     return response
