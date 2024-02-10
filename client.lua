@@ -40,7 +40,7 @@ local function rednet_comm(recipient, message, protocol) -- sends {message} to {
 end
 
 local function requestTransactionId()
-    local response, _ = rednet_comm(OBserverID, OBtransactionIDrequestMessage, OBtransactionIDrequestProtocol)
+    local response, _ = rednet_comm(OBserverID, {OBtransactionIDrequestMessage}, OBtransactionIDrequestProtocol)
     return response
 end
 
