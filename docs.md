@@ -43,15 +43,13 @@
 
 ###### TRANSACTION ID REQUEST DATA STRUCTURE (Response)
 {
-    *generated_id* = "[newly generated transaction id]",
-    *expiry* = [utc epoch date of expiry]
+    [generated id table (see TRANSACTION ID DATA STRUCTURE)]
 }
 
 ###### TRANSACTION ID DATA STRUCTURE
 {
     *content* = "[the id itself]",
     *expiry* = [utc epoch date of expiry],
-    *client* = [id of the computer that requested the transaction id]
 }
 
 ###### ACCOUNT DATA STRUCTURE
