@@ -1,4 +1,17 @@
 
+#### Config structure
+
+###### CLIENT CONFIG DATA STRUCTURE
+{
+    bankName = "[name of the bank hosting this server]"
+}
+
+###### SERVER CONFIG DATA STRUCTURE
+{
+    bankName = "[name of the bank hosting this server]"
+}
+
+
 #### Data structure
 
 ###### TRANSACTION DATA STRUCTURE (Request)
@@ -23,11 +36,16 @@
     *time* = "[hh:mm:ss transaction time]"
 }
 
-###### TRANSACTION ID DATA STRUCTURE (Request)
-{}
+###### TRANSACTION ID REQ DATA STRUCTURE (Request)
+{
+    "[id request message]"
+}
 
-###### TRANSACTION ID DATA STRUCTURE (Response)
-{}
+###### TRANSACTION ID REQ DATA STRUCTURE (Response)
+{
+    *generated_id* = "[newly generated transaction id]"
+    *expiry* = [utc epoch date of expiry]
+}
 
 ###### ACCOUNT DATA STRUCTURE
 {
@@ -38,9 +56,9 @@
         lastname = "[account holder last name]",
     },
     *transactionPolicies* = {
-        *maxTransferAmount* = [maximum amount per transaction],
+        *maxSingleTransactionAmount* = [maximum amount per transaction],
         *blacklist* = { [array of account IDs to never transfer funds to] },
-        
+        *allowRemote* = [true/false wether to allow]
     }
     *balance* = [total account balance],
     *logins* = { [array of computer IDs the account is logged on] }
