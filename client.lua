@@ -20,6 +20,10 @@ local configHandle = fs.open(configFile, "r")
 local configData = textutils.unserialize(configHandle.readAll())
 configHandle.close()
 
+-- standard data
+local stdDATELOCALE = "utc"
+local stdEPOCH = function () return os.epoch(stdDATELOCALE) end
+
 -- build OpenBanking data
 local OBdataPrefix = "OpenBanking:"
 local OBtransactionIDrequestMessage = OBdataPrefix.."requestTransactionID"
