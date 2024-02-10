@@ -36,15 +36,22 @@
     *time* = "[hh:mm:ss transaction time]"
 }
 
-###### TRANSACTION ID REQ DATA STRUCTURE (Request)
+###### TRANSACTION ID REQUEST DATA STRUCTURE (Request)
 {
     "[id request message]"
 }
 
-###### TRANSACTION ID REQ DATA STRUCTURE (Response)
+###### TRANSACTION ID REQUEST DATA STRUCTURE (Response)
 {
-    *generated_id* = "[newly generated transaction id]"
+    *generated_id* = "[newly generated transaction id]",
     *expiry* = [utc epoch date of expiry]
+}
+
+###### TRANSACTION ID DATA STRUCTURE
+{
+    *content* = "[the id itself]",
+    *expiry* = [utc epoch date of expiry],
+    *client* = [id of the computer that requested the transaction id]
 }
 
 ###### ACCOUNT DATA STRUCTURE
@@ -61,5 +68,5 @@
         *allowRemote* = [true/false wether to allow]
     }
     *balance* = [total account balance],
-    *logins* = { [array of computer IDs the account is logged on] }
+    *sessions* = { [array of computer IDs the account has an open session on] }
 }
