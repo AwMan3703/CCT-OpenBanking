@@ -62,8 +62,7 @@
     },
     *transactionPolicies* = {
         *maxSingleTransactionAmount* = [maximum amount per transaction],
-        *blacklist* = { [array of account IDs to never transfer funds to] },
-        *allowRemote* = [true/false wether to allow]
+        *blacklist* = { [array of account IDs to never transfer funds to] }
     }
     *balance* = [total account balance],
     *sessions* = { [array of computer IDs the account has an open session on] }
