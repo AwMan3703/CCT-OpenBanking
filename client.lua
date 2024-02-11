@@ -53,8 +53,7 @@ local function requestTransaction(id_from, id_to, amount) -- send {amount} money
         id = requestTransactionId(),
         from = id_from,
         to = id_to,
-        amount = amount,
-        client = os.getComputerID()
+        amount = amount
     }
     local response, _ = rednet_comm(OBserverID, request, OBtransactionProtocol)
     local success = false --wether the transaction was completed

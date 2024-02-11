@@ -103,7 +103,6 @@ local function OBtransactionRequestHandler(senderID, request, protocol)
         id = request.id,
         from = request.from,
         to = request.to,
-        origin = senderID,
         amount = 0, --transfer nothing by default
         completed = false, --deny transaction by default
         details = "",
@@ -111,9 +110,6 @@ local function OBtransactionRequestHandler(senderID, request, protocol)
         time = os.date("%X")
     }
     -- run a couple checks
-    if senderID ~= request.client then
-        response.details = "Client ID is different than declared, possible third party intermission"
-        return response end
     if not transactionIDs[request.id] then
         response.details = "Invalid transaction ID"
         return response end
