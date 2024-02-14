@@ -56,10 +56,10 @@
 ###### ACCOUNT DATA STRUCTURE
 {
     *id* = "[unique identifier]",
-    *psw* = "[password hash]",
+    *password* = "[password hash]",
     *holder* = {
         name = "[account holder name]",
-        lastname = "[account holder last name]",
+        lastname = "[account holder last name]"
     },
     *transactionPolicies* = {
         *maxSingleTransactionAmount* = [maximum amount per transaction],
@@ -67,4 +67,29 @@
     }
     *balance* = [total account balance],
     *sessions* = { [array of computer IDs the account has an open session on] }
+}
+
+###### ACCOUNT CREATION REQUEST DATA STRUCTURE (Request)
+{
+    *holder* = {
+        name = "[account holder name]",
+        lastname = "[account holder last name]"
+    },
+    *password* = "[plain password]"
+}
+
+###### ACCOUNT CREATION REQUEST DATA STRUCTURE (Response)
+{
+    *id* = "[unique identifier for the newly created account]"
+}
+
+###### ACCOUNT CLOSURE REQUEST DATA STRUCTURE (Request)
+{
+    *password* = "[plain password (to confirm)]"
+}
+
+###### ACCOUNT CLOSURE REQUEST DATA STRUCTURE (Response)
+{
+    *id* = "[unique identifier for the closed account]",
+    *successful* = [true/false wether the account was closed successfully]
 }
