@@ -43,8 +43,11 @@ local function rednet_comm(recipient, message, protocol) -- sends {message} to {
     return responder, response, protocol
 end
 
-local function requestTransactionId()
-    local _, response, _ = rednet_comm(OBserverID, {OBtransactionIDrequestMessage}, OBtransactionIDrequestProtocol)
+local function requestTransactionID()
+    local request = {
+        OBtransactionIDrequestMessage
+    }
+    local _, response, _ = rednet_comm(OBserverID, request, OBtransactionIDrequestProtocol)
     if not response.successful then return nil end --if no valid ID could be generated, return nil
     return response.content.content, response.content.expiry
 end
