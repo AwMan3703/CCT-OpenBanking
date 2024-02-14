@@ -91,7 +91,8 @@ local function runTransaction(from, to, amount)
 end
 
 
-local function OBhostProtocolMessageHandler(senderID, request, protocol)
+local function OBhostProtocolMessageHandler(senderID, request, protocol) --functions like a ping
+    return {true}
 end
 
 local function OBtransactionIDrequestHandler(senderID, request, protocol)
