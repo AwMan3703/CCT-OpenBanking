@@ -39,12 +39,12 @@ local OBserverID = rednet.lookup(OBhostProtocol, OBhostname(configData.bankName)
 local function rednet_comm(recipient, message, protocol) -- sends {message} to {recipient} under protocol {protocol} via the rednet API, then awaits a response and returns it
     peripheral.find("modem", rednet.open) --open all modems
     rednet.send(recipient, message, protocol)
-    local _, response, protocol = rednet.receive(protocol)
-    return response, protocol
+    local responder, response, protocol = rednet.receive(protocol)
+    return responder, response, protocol
 end
 
 local function requestTransactionId()
-    local response, _ = rednet_comm(OBserverID, {OBtransactionIDrequestMessage}, OBtransactionIDrequestProtocol)
+    local _, response, _ = rednet_comm(OBserverID, {OBtransactionIDrequestMessage}, OBtransactionIDrequestProtocol)
     return response
 end
 
@@ -55,8 +55,7 @@ local function requestTransaction(id_from, id_to, amount) -- send {amount} money
         to = id_to,
         amount = amount
     }
-    local response, _ = rednet_comm(OBserverID, request, OBtransactionProtocol)
-    local success = false --wether the transaction was completed
-    local details = "" --details about the transaction ("completed successfully", "insufficient balance", "unauthorized", ...)
-    return success, details
+    local _, response, _ = rednet_comm(OBserverID, request, OBtransactionProtocol)
+    local summary = "Transaction "..(response.completed and "completed" or "denied").." on "..response.date.." at "..response.time.." ("..response.details..")"
+    return summary, response.completed, response.details
 end
