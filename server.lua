@@ -54,6 +54,8 @@ local accounts = {} --STORES ALL ACCOUNT DATA
 
 local transactionIDs = {} --Stores generated transaction ids and info
 
+local transactions = {} --STORES ALL TRANSACTIONS (HISTORY - most recent first)
+
 
 local function generateTransactionID()
     local genid = OBtransactionID()
@@ -132,8 +134,11 @@ local function OBtransactionRequestHandler(senderID, request, protocol)
     local success, info = runTransaction(request.from, request.to, request.amount)
     -- remove the transaction ID (make it no longer valid + free up memory)
     table.remove(transactionIDs, table.indexOf(transactionIDs, request.id))
+    -- fill out the missing details in the response table
     response.completed = success
     response.details = info
+    -- store the response (transaction) in the history table
+    table.insert(transactions, 1, response)
     return response
 end
 
