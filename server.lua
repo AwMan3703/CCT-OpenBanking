@@ -55,7 +55,13 @@ local accounts = {} --STORES ALL ACCOUNT DATA
 local transactionIDs = {} --Stores generated transaction ids and info
 
 local transactions = {} --STORES ALL TRANSACTIONS (HISTORY - most recent first)
-
+local function getTransactions(filter) --returns all transactions that return true when the [filter] function is applied
+    local results = {}
+    for i = 1, #transactions do
+        local t = transactions[i]
+        if filter(t) then table.insert(results, t) end
+    end
+end
 
 local function generateTransactionID()
     local genid = OBtransactionID()
