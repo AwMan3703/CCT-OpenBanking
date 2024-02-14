@@ -56,6 +56,6 @@ local function requestTransaction(id_from, id_to, amount) -- send {amount} money
         amount = amount
     }
     local _, response, _ = rednet_comm(OBserverID, request, OBtransactionProtocol)
-    local summary = "Transaction "..(response.completed and "completed" or "denied").." on "..response.date.." at "..response.time.." ("..response.details..")"
+    local summary = "Transaction "..(response.completed and "completed" or "denied").." on "..response.date.." at "..response.time.." ("..response.details..") - transaction id: "..response.id
     return summary, response.completed, response.details
 end
