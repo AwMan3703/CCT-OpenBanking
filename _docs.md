@@ -33,7 +33,8 @@
     *completed* = [true/false, wether the transaction was completed]
     *details* = "[additional transaction details]",
     *date* = "[gg/mm/yyyy transaction date]",
-    *time* = "[hh:mm:ss transaction time]"
+    *time* = "[hh:mm:ss transaction time]",
+    *epoch* = [epoch date of transaction]
 }
 
 ###### TRANSACTION ID REQUEST DATA STRUCTURE (Request)

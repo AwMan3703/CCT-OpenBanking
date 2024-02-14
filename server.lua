@@ -114,7 +114,8 @@ local function OBtransactionRequestHandler(senderID, request, protocol)
         completed = false, --deny transaction by default
         details = "",
         date = os.date("%d-%m-%Y"),
-        time = os.date("%X")
+        time = os.date("%X"),
+        epoch = stdEPOCH()
     }
     -- run a couple checks
     if not transactionIDs[request.id] then
