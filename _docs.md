@@ -28,7 +28,6 @@
     *id* = "[transaction id]",
     *from* = "[account id of sender]",
     *to* = "[account id of recipient]",
-    *origin* = [id of the computer that requested the transaction],
     *amount* = [amount transferred],
     *completed* = [true/false, wether the transaction was completed]
     *details* = "[additional transaction details]",
