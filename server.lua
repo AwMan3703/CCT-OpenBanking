@@ -62,11 +62,12 @@ local function getTransactions(filter) --returns all transactions that return tr
     end
 end
 
-local function generateTransactionID()
-    local genid = OBtransactionID()
-    if table.contains(transactionIDs, nil,
-        function(v) return v.content == genid end ) then --if an identical id is already present
-        return generateTransactionID() --try again until the stack overflows (🤓☝️"but its bad practice to–" yes i know shut up)
+local maxTransactionIDreGenerations = 5 --how many times the transaction ID can be regenerated because already registered
+local function generateTransactionID(i)
+    local genid = OBtransactionID(i)
+    if table.contains(transactionIDs, nil, function(v) return v.content == genid end ) then --if an identical id is already present
+        if i > maxTransactionIDreGenerations then return nil end --if no new id could be generated for {maxTransactionIDreGenerations} times, abort
+        return generateTransactionID(i+1) --try again
     end
     transactionIDs[genid] = { --add to transaction IDs list
         content = genid,
@@ -109,7 +110,15 @@ local function OBhostProtocolMessageHandler(senderID, request, protocol) --host 
 end
 
 local function OBtransactionIDrequestHandler(senderID, request, protocol)
-    return generateTransactionID()
+    local response = {
+        content = nil,
+        successful = false
+    }
+    local newID = generateTransactionID(1)
+    if not newID then return response end
+    response.content = newID
+    response.successful = true
+    return response
 end
 
 local function OBtransactionRequestHandler(senderID, request, protocol)

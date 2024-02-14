@@ -43,7 +43,8 @@
 
 ###### TRANSACTION ID REQUEST DATA STRUCTURE (Response)
 {
-    [generated id table (see TRANSACTION ID DATA STRUCTURE)]
+    *content* = [generated id table (see TRANSACTION ID DATA STRUCTURE)],
+    *successful* = [true/false wether the ID was generated successfully]
 }
 
 ###### TRANSACTION ID DATA STRUCTURE

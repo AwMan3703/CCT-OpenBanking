@@ -45,7 +45,8 @@ end
 
 local function requestTransactionId()
     local _, response, _ = rednet_comm(OBserverID, {OBtransactionIDrequestMessage}, OBtransactionIDrequestProtocol)
-    return response
+    if not response.successful then return nil end --if no valid ID could be generated, return nil
+    return response.content.content, response.content.expiry
 end
 
 local function requestTransaction(id_from, id_to, amount) -- send {amount} money to {id}
