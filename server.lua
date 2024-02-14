@@ -28,6 +28,7 @@ local stdEPOCH = function () return os.epoch(stdDATELOCALE) end
 local OBdataPrefix = "OpenBanking:"
 local OBtransactionIDrequestMessage = OBdataPrefix.."requestTransactionID"
 local OBtransactionIDrequestProtocol = OBdataPrefix.."transactionIDRequest"
+local OBAccountOpeningProtocol = OBdataPrefix.."requestAccountOpening"
 local OBtransactionProtocol = OBdataPrefix.."requestTransaction"
 local OBhostProtocol = OBdataPrefix.."BankComms"
 local OBhostnamePrefix = OBdataPrefix.."BankServer:"

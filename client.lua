@@ -28,6 +28,7 @@ local stdEPOCH = function () return os.epoch(stdDATELOCALE) end
 local OBdataPrefix = "OpenBanking:"
 local OBtransactionIDrequestMessage = OBdataPrefix.."requestTransactionID"
 local OBtransactionIDrequestProtocol = OBdataPrefix.."transactionIDRequest"
+local OBAccountOpeningProtocol = OBdataPrefix.."requestAccountOpening"
 local OBtransactionProtocol = OBdataPrefix.."requestTransaction"
 local OBhostProtocol = OBdataPrefix.."BankComms"
 local OBhostnamePrefix = OBdataPrefix.."BankServer:"
@@ -62,4 +63,17 @@ local function requestTransaction(id_from, id_to, amount) -- send {amount} money
     local _, response, _ = rednet_comm(OBserverID, request, OBtransactionProtocol)
     local summary = "Transaction "..(response.completed and "completed" or "denied").." on "..response.date.." at "..response.time.." ("..response.details..") - transaction id: "..response.id
     return summary, response.completed, response.details
+end
+
+local function requestAccountOpening(holderName, holderLastname, password)
+    local request = {
+        holder = {
+            name = holderName,
+            lastname = holderLastname
+        },
+        password = password
+    }
+    local _, response, _ = rednet_comm(OBserverID, request, OBAccountOpeningProtocol)
+    if not response.successful then return false, nil end
+    return true, response.id
 end
