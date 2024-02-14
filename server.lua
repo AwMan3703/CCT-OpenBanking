@@ -86,8 +86,14 @@ local function runTransaction(from, to, amount)
     if table.contains(accountfrom.transactionPolicies.blacklist, accountto) then --the recipient is not blacklisted
         return false, "Recipient blacklisted" end
 
-    --transfer the desired amount
-    -- wip
+    -- transfer the selected amount
+    local oldbalancefrom = accountfrom.balance
+    local oldbalanceto = accountto.balance
+    accounts[from].balance = oldbalancefrom - amount
+    accounts[to].balance = oldbalanceto - amount
+
+    -- confirm
+    return true, "Transaction completed"
 end
 
 
@@ -122,7 +128,7 @@ local function OBtransactionRequestHandler(senderID, request, protocol)
         return response end
 
     -- run the actual transaction
-    local success, info, description = runTransaction(request.from, request.to, request.amount)
+    local success, info = runTransaction(request.from, request.to, request.amount)
     -- remove the transaction ID (make it no longer valid + free up memory)
     table.remove(transactionIDs, table.indexOf(transactionIDs, request.id))
     response.completed = success
