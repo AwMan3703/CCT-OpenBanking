@@ -38,8 +38,7 @@ local OBhostname = function (bankname) return OBhostnamePrefix..bankname end
 local OBtransactionID = function () return OBdataPrefix.."transaction:"..configData.bankName.."@"..os.date("%H%M%S%Y%m%d").."-"..math.random(9999) end
 
 -------------------------------------------------------------------- UTILITY ---------------------------------------------------------------------
-function table.contains(t, element, filter)
-    --this is gonna be a damn nightmare to maintain but i want it to be single-line because i am acoustic
+function table.contains(t, element, filter) --this is gonna be a damn nightmare to maintain but i want it to be single-line because i am acoustic
     for _, value in ipairs(t) do if (filter and filter(value)) or (value == element) then return true end end return false
 end
 function table.indexOf(t, element)
@@ -55,7 +54,7 @@ local accounts = {} --STORES ALL ACCOUNT DATA
 local transactionIDs = {} --Stores generated transaction ids and info
 
 local transactions = {} --STORES ALL TRANSACTIONS (HISTORY - most recent first)
-local function getTransactions(filter) --returns all transactions that return true when the [filter] function is applied
+local function getTransactions(filter) --returns all transactions that return true when the {filter} function is applied
     local results = {}
     for i = 1, #transactions do
         local t = transactions[i]
@@ -105,7 +104,7 @@ local function runTransaction(from, to, amount)
 end
 
 
-local function OBhostProtocolMessageHandler(senderID, request, protocol) --functions like a ping
+local function OBhostProtocolMessageHandler(senderID, request, protocol) --host protocol functions like a ping
     return {true}
 end
 
