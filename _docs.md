@@ -81,7 +81,10 @@
 ###### ACCOUNT CREATION REQUEST DATA STRUCTURE (Response)
 {
     *id* = "[unique identifier for the newly created account]"
+<<<<<<< HEAD
     *successful* = [true/false wether the account was created successfully]
+=======
+>>>>>>> 06bbd3bda305bfb51f1dc662e504a2c62b491d85
 }
 
 ###### ACCOUNT CLOSURE REQUEST DATA STRUCTURE (Request)
